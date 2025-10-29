@@ -23,9 +23,9 @@ fun PrimaryButton(modifier: Modifier = Modifier, text: String, onClick: () -> Un
             containerColor = Primary,
         ),
         elevation = ButtonDefaults.elevatedButtonElevation(
-            defaultElevation = 4.dp
+            defaultElevation = TabelaNutricionalTheme.sizing.xs
         ),
-        shape = RoundedCornerShape(size = 16.dp),
+        shape = RoundedCornerShape(size = TabelaNutricionalTheme.sizing.md),
         onClick = onClick
     ) {
         Text(text = text, style = Typography.bodyLarge, color = MaterialTheme.colorScheme.onPrimary)
