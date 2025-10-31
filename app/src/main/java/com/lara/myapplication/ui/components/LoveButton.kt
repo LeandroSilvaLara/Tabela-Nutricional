@@ -17,6 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.selected
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.tooling.preview.Preview
 import com.lara.myapplication.R
 import com.lara.myapplication.ui.theme.Background
@@ -24,59 +26,63 @@ import com.lara.myapplication.ui.theme.Secondary
 import com.lara.myapplication.ui.theme.TabelaNutricionalTheme
 import kotlinx.coroutines.delay
 
+
 @Composable
-fun LoveButton(modifier: Modifier = Modifier, onClick: (isSelected: Boolean) -> Unit) {
-    var isSelected by remember { mutableStateOf(false) }
-    var isPressd by remember { mutableStateOf(false) }
+fun LoveButton(
+    modifier: Modifier = Modifier,
+    isSelected: Boolean = false,
+    onClick: (isSelected: Boolean) -> Unit
+) {
+    var isSelected by remember { mutableStateOf(isSelected) }
 
+    var isPressed by remember { mutableStateOf(false) }
 
-    LaunchedEffect(key1 = isPressd) {
-        if (isPressd) {
+    LaunchedEffect(key1 = isPressed) {
+        if (isPressed) {
             delay(500)
-            isPressd = false
+            isPressed = false
         }
     }
 
     val color by animateColorAsState(
-        targetValue = if (isPressd) Secondary else LocalContentColor.current,
-        animationSpec = tween (durationMillis = 500)
+        targetValue = if (isSelected) Secondary else LocalContentColor.current,
+        animationSpec = tween(durationMillis = 500)
     )
 
     val scale by animateFloatAsState(
-        targetValue = if (isSelected) 1.2f else 1.0f,
-        animationSpec = tween (durationMillis = 300)
+        targetValue = if (isPressed) 1.2f else 1f,
+        animationSpec = tween(durationMillis = 300)
     )
 
-
     IconButton(
-        modifier = modifier,
+        modifier = modifier.semantics { selected = isSelected},
         colors = IconButtonDefaults.iconButtonColors(
             containerColor = Background,
             contentColor = color
-
         ),
         onClick = {
-            isPressd = true
+            isPressed = true
             isSelected = !isSelected
             onClick(isSelected)
         }
     ) {
         Icon(
             modifier = Modifier.scale(scale),
-            painter = painterResource(id = if (isSelected) R.drawable.ic_heart else R.drawable.ic_heart_filled),
+            painter = painterResource(id = if (!isSelected) R.drawable.ic_heart else R.drawable.ic_heart_filled),
             contentDescription = stringResource(
                 id = R.string.botao_coracao
-            ),
+            ) + if (isSelected) " selecionado" else " não selecionado"
         )
     }
-
 }
 
 @Preview
 @Composable
 private fun LoveButtonPreview() {
     TabelaNutricionalTheme {
-        LoveButton(onClick = {})
+        LoveButton(
+            modifier = Modifier,
+            onClick = {}
+        )
     }
-
 }

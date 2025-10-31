@@ -1,0 +1,5 @@
+package com.lara.myapplication.core.navigation
+
+enum class UIArgument(val key: String) {
+    HEALTHY_RECIPE_ID(key = "healthyRecipeId"),
+}

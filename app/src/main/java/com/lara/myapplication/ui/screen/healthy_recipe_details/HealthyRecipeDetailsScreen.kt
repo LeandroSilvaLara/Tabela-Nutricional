@@ -55,6 +55,7 @@ import com.lara.myapplication.ui.components.healthy_recipe_details.HealthyRecipe
 import com.lara.myapplication.ui.components.healthy_recipe_details.HealthyRecipeNutrientBar
 import com.lara.myapplication.ui.screen.healthy_recipe_more_details.HealthyRecipeMoreDetailsScreen
 import com.lara.myapplication.ui.theme.Primary
+import com.lara.myapplication.ui.screen.home.HomeUIState
 import com.lara.myapplication.ui.theme.TabelaNutricionalTheme
 import com.lara.myapplication.ui.theme.TabelaNutricionalTheme.sizing
 import kotlinx.coroutines.launch
